@@ -1,6 +1,7 @@
 import argparse
 import asyncio
-import aiohttp
+from request.request import get
+from scraper.scraper import scrapArchive
 
 def parseArgs():
     parser = argparse.ArgumentParser(description='Personal information')
@@ -13,19 +14,12 @@ def parseArgs():
     print(args.surname)
     print(args.age)
 
-async def getUrlFromText(url: str):
-    async with aiohttp.ClientSession() as session:
-        response = await session.get(url)
-        return await response.text()
-
 def getResponse():
     allInstrument = "All Instrument"
     startDate = "2022-12-27"
     endDate = "2022-12-27"
-    url = "https://www.dsebd.org/day_end_archive.php?startDate=" + startDate + "&endDate=" + endDate + "&inst=" + allInstrument + "&archive=data"
-    print(url)
-    html_text = asyncio.run(getUrlFromText(url))
-    print(len(html_text))
+    scrapArchive(startDate=startDate, endDate=endDate, companyName=allInstrument)
+    
 
 
 
