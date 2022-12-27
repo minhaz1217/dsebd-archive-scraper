@@ -18,9 +18,7 @@ def getResponse():
     allInstrument = "All Instrument"
     startDate = "2022-12-27"
     endDate = "2022-12-27"
-    scrapArchive(startDate=startDate, endDate=endDate, companyName=allInstrument)
-    
-
-
+    for data in scrapArchive(startDate=startDate, endDate=endDate, companyName=allInstrument):
+        print(data)
 
 getResponse()
