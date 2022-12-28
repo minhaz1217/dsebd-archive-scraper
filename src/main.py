@@ -15,17 +15,15 @@ def parseArgs():
     print(args.surname)
     print(args.age)
 
-def getResponse():
+def scrapData():
     allInstrument = "All Instrument"
     startDate = "2022-12-27"
     endDate = "2022-12-27"
 
     datas : list= scrapArchive(startDate=startDate, endDate=endDate, companyName=allInstrument)
     print("Data scraped: ", len(datas))
-    writeFile(data=datas, path= "Stock data {}-{}-{}".format(allInstrument, startDate, endDate),type=1)
-
     
-    # for data in datas:
-    #     print(data)
+    # writeFile(data=datas, path= "Stock data {}-{}-{}.csv".format(allInstrument, startDate, endDate),type=1)
+    writeFile(data=datas, path= "Stock data {}-{}-{}.json".format(allInstrument, startDate, endDate),type=2)
 
-getResponse()
+scrapData()

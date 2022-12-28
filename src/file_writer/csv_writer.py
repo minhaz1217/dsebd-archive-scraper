@@ -1,6 +1,6 @@
 import csv
 
-def writeCSV(datas : list, path: str):
+def write(datas : list, path: str):
     if(len(datas) == 0):
         raise ValueError("No data to write.")
 
