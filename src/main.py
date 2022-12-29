@@ -1,29 +1,33 @@
 import argparse
-import asyncio
-from request.request import get
 from scraper.scraper import scrapArchive
 from file_writer.file_writer_factory import writeFile
 
-def parseArgs():
-    parser = argparse.ArgumentParser(description='Personal information')
-    parser.add_argument('--name', dest='name', type=str, help='Name of the candidate')
-    parser.add_argument('--surname', dest='surname', type=str, help='Surname of the candidate')
-    parser.add_argument('--age', dest='age', type=int, help='Age of the candidate')
+def main():
 
+    parser = argparse.ArgumentParser(description='Scraper Usage')
+    parser.add_argument('--start', dest='startDate', type=str, help='Start date')
+    parser.add_argument('--end', dest='endDate', type=str, help='End date')
+    parser.add_argument('--company', dest='company', type=str, help='Company name that you want to scrap for.')
+    parser.add_argument('--output', dest='output', type=int, help='Output format, 1 means csv 2 means json')
     args = parser.parse_args()
-    print(args.name)
-    print(args.surname)
-    print(args.age)
-
-def scrapData():
-    allInstrument = "All Instrument"
-    startDate = "2022-12-27"
-    endDate = "2022-12-27"
-
-    datas : list= scrapArchive(startDate=startDate, endDate=endDate, companyName=allInstrument)
-    print("Data scraped: ", len(datas))
     
-    # writeFile(data=datas, path= "Stock data {}-{}-{}.csv".format(allInstrument, startDate, endDate),type=1)
-    writeFile(data=datas, path= "Stock data {}-{}-{}.json".format(allInstrument, startDate, endDate),type=2)
+    # print(args.startDate)
+    scrapData(args.startDate, args.endDate, args.company, args.output)
 
-scrapData()
+
+def scrapData(startDate: str, endDate: str, company: str, output: int):
+    datas : list= scrapArchive(startDate=startDate, endDate=endDate, companyName=company)
+    print("Data scraped: ", len(datas))
+    writeFile(data=datas, path= "Stock data {}-{}-{}.csv".format(company, startDate, endDate),type=output)
+    
+    
+    # allInstrument = "All Instrument"
+    # startDate = "2022-07-01"
+    # endDate = "2022-07-01"
+
+    # print("Data scraped: ", len(datas))
+    
+
+    # writeFile(data=datas, path= "Stock data {}-{}-{}.json".format(allInstrument, startDate, endDate),type=2)
+
+main()
